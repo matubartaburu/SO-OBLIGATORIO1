@@ -46,7 +46,6 @@ pthread_mutex_lock(&cartel);
 printf("Pasajero %d esta mirando el cartel\n", id);
 sleep(rand() % 3 + 1);//tiempo random que lee el cartel. 
 pthread_mutex_unlock(&cartel); //dar libertad una vez termiando. 
-return NULL; 
 }; 
 
 void* funcion_oficinista(void*arg){ 
