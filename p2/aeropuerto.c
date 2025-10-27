@@ -3,15 +3,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 pthread_mutex_t cartel; //recursocompartido.
-pthread_mutex_t lectores; 
-int cantlectores = 0; 
 
 void* funcion_oficinista(void*arg); 
 void* funcion_pasajero(void*arg); 
 
 int main() {
-pthread_mutex_init(&cartel, NULL); 
-pthread_t hilos_pasajeros[100]; //necesario sobre todo por el join.
+pthread_mutex_init(&cartel, NULL); //inicializo recurso ya creado. 
+pthread_t hilos_pasajeros[100]; 
 pthread_t hilos_oficinistas[5];  
 int Pasajeros[100]; //uso posiciones al imprimir.
 int Oficinistas[5]; 
@@ -44,8 +42,8 @@ void* funcion_pasajero(void*arg){
 int id = *(int *)arg;
 pthread_mutex_lock(&cartel); 
 printf("Pasajero %d esta mirando el cartel\n", id);
-sleep(rand() % 3 + 1);//tiempo random que lee el cartel. 
-pthread_mutex_unlock(&cartel); //dar libertad una vez termiando. 
+sleep(rand() % 3 + 1);
+pthread_mutex_unlock(&cartel);  
 }; 
 
 void* funcion_oficinista(void*arg){ 
