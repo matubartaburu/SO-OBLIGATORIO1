@@ -8,7 +8,7 @@ SESION_INICIADA=false
 usuario_actual=""
 
 if [ ! -f "usuarios.txt" ]; then 
-  touch "usuarios.txt" 
+  touch "usuarios.txt"   
 fi
 
 if ! grep -q "^admin:admin" "usuarios.txt"; then 
