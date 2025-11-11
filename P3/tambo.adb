@@ -124,7 +124,7 @@ end subirCamion;
     SubirCamion (id); -- como viene despues del if me aseguro que sea despues de ambos. (letra)
   end Vaca;
 
-  Vacas       : array (1 .. 100) of Vaca := (others => <>);
+  Vacas : array (1 .. 100) of Vaca := (others => <>);
 begin
 
 end Tambo;
