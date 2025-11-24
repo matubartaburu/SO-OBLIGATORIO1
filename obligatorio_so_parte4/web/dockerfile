@@ -1,0 +1,11 @@
+#aca vamos a definir los pasos para construir una imagen. "receta de cocina"
+FROM node:16-alpine 
+WORKDIR /app 
+COPY package*.json ./
+RUN npm i
+COPY . . 
+EXPOSE 5000 
+#donde se expone el contenedor debe coincidir donde escucha mi app. 
+CMD ["node", "server.js"] 
+# cmd recibe el programa que vas a ejecutar dentro del contenedor y el archivo que ese programa
+# ejecuta.

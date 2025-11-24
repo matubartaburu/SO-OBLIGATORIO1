@@ -1,0 +1,42 @@
+version: '3.8'
+services: #defino contenedores a levantar.  
+ web1: 
+  build: ./web #le indico donde esta el dockerFile. 
+  hostname: web1 
+  depends_on: #va a iniciarse despues de redis. aseguro comuniación entre aplicación y bd.
+    - redis  
+  expose: 
+     - "5000" #viendo lo ya creado. 
+
+ web2:  #nombre con que lo llamo luego en nginx.conf. 
+  build: ./web 
+  hostname: web2   #DUDA: se puede agregar hostname o es container name? 
+  depends_on:  #va a iniciarse despues de redis. 
+       - redis 
+  expose: 
+   - "5000"
+  
+ redis: 
+   image: redis:alpine   #usamos alpine para que sea más liviana. 
+   hostname: redis
+   volumes: 
+    - volumenpararedis:/data  #redis es la bd y quiero persistencia. (no se borran datos)
+    #llamo al volumen creado para que se vincule con el contenedor. 
+
+ nginx:  #balanceador de carga. 
+  build: 
+    context: ./nginx #cuando el dockerfile
+    dockerfile: Dockerfile.ng 
+  ports:
+      - "8080:80" #8080 es donde se abre la web al exterior(localhost:8080) tipico dijo el profe.
+      #el 80 es porque ng escucha en puerto 80 (definido en el config.)
+  depends_on:
+      - web1 #no puede balancear nada si no existen ambos. 
+      - web2
+
+
+volumes: #aca creo el volumen fuera de services.
+  volumenpararedis:
+
+
+
